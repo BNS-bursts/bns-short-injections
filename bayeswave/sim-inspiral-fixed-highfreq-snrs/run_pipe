@@ -1,0 +1,21 @@
+#!/bin/bash
+IMAGE="/cvmfs/ligo-containers.opensciencegrid.org/james-clark/bayeswave/latest"
+BASEDIR="${PWD}"
+
+#   SINGULARITY_HOME=${BASEDIR} \
+#   SINGULARITYENV_LIGO_DATAFIND_SERVER="datafind.ligo.org:443" \
+#       singularity exec \
+#       --bind /home --bind /tmp \
+#       ${IMAGE} bayeswave_pipe \
+#       ${BASEDIR}/pmr_config.ini \
+#       --workdir ${BASEDIR}/HLV-wdl200av15ls220-137137-netSNR_10 \
+#       --skip-megapy \
+#       --osg-jobs --glide-in 
+
+source /home/jclark/opt/lscsoft/bayeswave_gzipped-xml-fix/etc/bayeswave-user-env.sh
+bayeswave_pipe \
+    pmr_config.ini \
+    --workdir HLV-wdl200av15ls220-137137-netSNR_10 \
+    --skip-megapy \
+    --osg-jobs --glide-in 
+
