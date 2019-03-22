@@ -53,6 +53,11 @@ The `make-snr-injecsions.sh` has a hardcoded time window of 1 hour and an
 instruction to generate 100 injections per hour.  Everything else should be
 self-explanatory.
 
+Note: you may need to convert the injection file to deal with (this)[https://git.ligo.org/lscsoft/bayeswave/merge_requests/60]:
+```
+ligolw_no_ilwdchar HLVblah.gz
+```
+
 
 
 

@@ -23,11 +23,11 @@ GPSTIME=1187008882.43 # Distribute around this time: [GPSTIME-0.5*INJWINDOW, GPS
 
 # Parse the waveform path to get the name of the simulation
 wavename=`python -c "print '${WAVEFORM}'.split('/')[-1].replace('.h5','')"`
-OUTNAME="HLV-${wavename}-netSNR_${NETSNR}-TEST.xml.gz"
+OUTNAME="HLV-${wavename}-netSNR_${NETSNR}.xml.gz"
 
 # Static input
 IFOS="H1 L1 V1"
-PSDPATH="/home/jclark/Projects/BNS-injections/psds"
+PSDPATH="/home/jclark/Projects/bns-short-injections/data/psds"
 H1ASD="${PSDPATH}/aLIGOZeroDetHighPower-ASD.txt"
 L1ASD="${PSDPATH}/aLIGOZeroDetHighPower-ASD.txt"
 V1ASD="${PSDPATH}/AdvVirgoDesign-ASD.txt"
