@@ -1,7 +1,9 @@
-#!/bin/bash
-IMAGE="/cvmfs/ligo-containers.opensciencegrid.org/james-clark/bayeswave/latest"
-BASEDIR="${PWD}"
+#!/bin/bash -e
 
+source /home/jclark/opt/lscsoft/bayeswave_pipeline-enhancements/etc/bayeswave-user-env.sh
+
+#   IMAGE="/cvmfs/ligo-containers.opensciencegrid.org/james-clark/bayeswave/latest"
+#   BASEDIR="${PWD}"
 #   SINGULARITY_HOME=${BASEDIR} \
 #   SINGULARITYENV_LIGO_DATAFIND_SERVER="datafind.ligo.org:443" \
 #       singularity exec \
@@ -12,10 +14,20 @@ BASEDIR="${PWD}"
 #       --skip-megapy \
 #       --osg-jobs --glide-in 
 
-source /home/jclark/opt/lscsoft/bayeswave_gzipped-xml-fix/etc/bayeswave-user-env.sh
+if [ $# != 1 ]; then
+    echo "Require an NRHDF5 filename"
+    exit 1
+fi
+
+waveform=$(echo `basename $1` | sed 's/.h5//g') 
+XMLDIR="/home/jclark/Projects/bns-short-injections/sim-inspiral/sim-inspiral-fixed-highfreq-snrs"
+JOBNAME="HLV-${waveform}-netSNR_10"
+XMLFILE="${XMLDIR}/${JOBNAME}.xml.gz"
+
 bayeswave_pipe \
     pmr_config.ini \
-    --workdir HLV-wdl200av15ls220-137137-netSNR_10 \
+    --workdir ${JOBNAME} \
+    -I ${XMLFILE} \
     --skip-megapy \
     --osg-jobs --glide-in 
 

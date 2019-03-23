@@ -1,0 +1,29 @@
+#!/bin/sh
+#set -x
+
+if [ $# == 1 ]; then
+    WORKDIR=$(realpath $1)
+else
+    echo "illegal nargs"
+    exit 1
+fi
+
+# Ensure valid grid proxy
+if ! grid-proxy-info -exists -valid 1:0 2>/dev/null; then
+    read -p "Enter your LIGO.ORG username: " username && echo $username |
+    xargs -n 1 ligo-proxy-init
+fi
+ORIG_X509_USER_PROXY=$(grid-proxy-info -path)
+
+x509file=$(basename ${ORIG_X509_USER_PROXY})
+cp ${ORIG_X509_USER_PROXY} ${WORKDIR}
+
+X509_USER_PROXY=${WORKDIR}/${x509file}
+grid-proxy-info
+
+pushd ${WORKDIR}
+condor_submit_dag -f $(basename ${WORKDIR}.dag)
+popd
+
+
+
