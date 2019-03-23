@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+
+if [ $# != 1 ]; then
+    echo "Require a list of NRHDF5 files"
+    exit 1
+fi
+
+while read p; do
+    echo $p
+
+    waveform=$(echo `basename $p` | sed 's/.h5//g') 
+    jobname="HLV-${waveform}-netSNR_10"
+
+    ./osg_submit_dag ${jobname}
+
+done < bauswein_h5_list.txt
+
