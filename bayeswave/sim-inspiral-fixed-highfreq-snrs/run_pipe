@@ -21,14 +21,14 @@ fi
 
 waveform=$(echo `basename $1` | sed 's/.h5//g') 
 XMLDIR="/home/jclark/Projects/bns-short-injections/sim-inspiral/sim-inspiral-fixed-highfreq-snrs"
-JOBNAME="HLV-${waveform}-netSNR_10"
-XMLFILE="${XMLDIR}/${JOBNAME}.xml.gz"
+jobname="HLV-${waveform}-netSNR_10"
+xmlfile="${XMLDIR}/${jobname}.xml.gz"
 
 bayeswave_pipe \
     pmr_config.ini \
-    --workdir ${JOBNAME} \
-    -I ${XMLFILE} \
+    --workdir ${PWD}/${jobname} \
+    -I ${xmlfile} \
     --skip-megapy \
-    --osg-jobs --glide-in 
+    --osg-deploy
 
 

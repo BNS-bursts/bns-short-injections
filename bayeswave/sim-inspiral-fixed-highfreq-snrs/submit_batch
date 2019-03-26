@@ -12,7 +12,7 @@ while read p; do
     waveform=$(echo `basename $p` | sed 's/.h5//g') 
     jobname="HLV-${waveform}-netSNR_10"
 
-    ./osg_submit_dag ${jobname}
+    condor_submit_dag ${jobname}/${jobname}.dag
 
-done < bauswein_h5_list.txt
+done < $1
 
